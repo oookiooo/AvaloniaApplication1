@@ -19,7 +19,7 @@ namespace AvaloniaApplication1.WebApiConnector
         {
             _httpClient = httpClient;
         }
-
+        //test git
         public async Task<User> GetUserAsync(string email, string password)
         {
             var response = await _httpClient.GetAsync($"{AplicationResources.ApiUrl}user/GetUser?name={email}");
