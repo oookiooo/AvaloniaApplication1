@@ -3,14 +3,17 @@ using ReactiveUI;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using AvaloniaApplication1.WebApiConnector;
+using AvaloniaApplication1.Models;
 namespace AvaloniaApplication1.ViewModels
 {
+
     public partial class MainWindowViewModel : ViewModelBase
     {
         private readonly UserWebApi _userWebApi = new UserWebApi();
         public string Greeting => "Welcome to Avalonia!";
         private ICommand _sendToApi;
-        public ICommand SendToApi {  
+        public ICommand SendToApi
+        {
             get
             {
                 if (_sendToApi == null)
@@ -26,7 +29,13 @@ namespace AvaloniaApplication1.ViewModels
         }
         private async void FilterCheckedExecute()
         {
-            await _userWebApi.GetUserAsync(Login, Haslo);
+            var user = await _userWebApi.GetUserAsync(Login, Haslo);
+
+            if (App.Current is App app)
+            {
+                app.UserModel = user;
+            }
+            var test = AplicationResources.userActuallyLogin;
         }
         private string _login;
         public string Login
